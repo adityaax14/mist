@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MIST Website</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #000;
+      color: #fff;
+    }
+
+    /* Navbar */
+    .navbar {
+      background: #ff6a00;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 30px;
+    }
+    .logo {
+      font-size: 30px;
+      font-weight: bold;
+    }
+    .nav-links button {
+      background: #000;
+      color: #fff;
+      border: none;
+      padding: 8px 20px;
+      margin-left: 10px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .nav-links button.active {
+      background: #fff;
+      color: #000;
+    }
+
+    /* Pages */
+    .page {
+      display: none;
+      padding: 40px;
+      text-align: center;
+    }
+    .page.active {
+      display: block;
+    }
+
+    /* HOME PAGE */
+    .images-row {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 40px;
+    }
+    .img-card {
+      background: #ff6a00;
+      padding: 60px 30px;
+      border-radius: 10px;
+      width: 200px;
+      height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      font-weight: bold;
+    }
+    .img-desc {
+      margin-top: 8px;
+      color: #fff;
+    }
+
+    .triangle-btn {
+      width: 0;
+      height: 0;
+      border-top: 40px solid transparent;
+      border-bottom: 40px solid transparent;
+      border-left: 70px solid #ff6a00;
+      margin: 50px auto 20px;
+      cursor: pointer;
+      position: relative;
+    }
+    .triangle-btn::after {
+      content: "click me";
+      position: absolute;
+      left: -40px;
+      top: -10px;
+      font-size: 14px;
+      color: #000;
+      transform: rotate(-90deg);
+    }
+    .toggle-text {
+      font-size: 18px;
+      display: none;
+    }
+
+    /* GLAZING MIST PAGE */
+    .glazing-logo {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+    .glazing-logo img {
+      width: 700px;
+      height: auto;
+    }
+    .paragraph {
+      margin-top: 40px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.5;
+    }
+
+    /* ABOUT US PAGE */
+    .about-btn {
+      background: #ff6a00;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      margin-top: 200px;
+    }
+    .about-note {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">MIST</div>
+    <div class="nav-links">
+      <button id="homeBtn" class="active">Home</button>
+      <button id="glazingBtn">Glazing MIST</button>
+      <button id="aboutBtn">About Us</button>
+    </div>
+  </div>
+
+  <!-- Home Page -->
+  <div id="homePage" class="page active">
+    <div class="images-row">
+      <div>
+        <div class="img-card">image 1</div>
+        <div class="img-desc">Image description</div>
+      </div>
+      <div>
+        <div class="img-card">image 2</div>
+        <div class="img-desc">Image description</div>
+      </div>
+      <div>
+        <div class="img-card">image 3</div>
+        <div class="img-desc">Image description</div>
+      </div>
+    </div>
+
+    <div class="triangle-btn" id="triangleBtn"></div>
+    <div class="toggle-text" id="toggleText">YOU CLICKED THE BUTTON YAYYY!!!</div>
+    <p style="margin-top:50px;font-size:14px;">
+      (on clicking the button, the text on the right appears<br>
+      and on clicking the button again, it disappears)
+    </p>
+  </div>
+
+  <!-- Glazing MIST Page -->
+  <div id="glazingPage" class="page">
+    <div class="glazing-logo">
+      <!-- Replace these with your logo images if needed -->
+      <img src="channel pictures/mist.png" alt="">
+      
+    </div>
+    <div class="paragraph">
+      <p>
+        Glazing MIST is an innovative platform designed to bring clarity and shine to your digital projects.
+        It serves as a hub for creativity, knowledge sharing, and interactive content creation.
+      </p>
+      <p>
+        By using GPT technology, MIST allows you to explore ideas, craft engaging materials,
+        and present them with a polished look. Whether you're a student or professional,
+        Glazing MIST helps transform concepts into beautifully designed outcomes.
+      </p>
+    </div>
+  </div>
+
+  <!-- About Us Page -->
+  <div id="aboutPage" class="page">
+    <button class="about-btn" id="aboutAlertBtn">press me pls</button>
+    <div class="about-note">
+      clicking on this button shows your name, registration number and phone number in a JS alert
+    </div>
+  </div>
+
+  <script>
+    // Nav buttons switching pages
+    const pages = {
+      homeBtn: document.getElementById('homePage'),
+      glazingBtn: document.getElementById('glazingPage'),
+      aboutBtn: document.getElementById('aboutPage')
+    };
+    document.querySelectorAll('.nav-links button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        Object.values(pages).forEach(p => p.classList.remove('active'));
+        pages[btn.id].classList.add('active');
+      });
+    });
+
+    // Home page toggle text
+    const triangleBtn = document.getElementById('triangleBtn');
+    const toggleText = document.getElementById('toggleText');
+    triangleBtn.addEventListener('click', () => {
+      toggleText.style.display = toggleText.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // About page alert
+    document.getElementById('aboutAlertBtn').addEventListener('click', () => {
+      alert("Name: Aditya\nReg No: 240905540\nPhone: 7488196506");
+    });
+  </script>
+</body>
+</html>
